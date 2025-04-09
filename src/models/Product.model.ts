@@ -20,6 +20,11 @@ class Product extends Model {
         type: DataType.BOOLEAN
     })
     declare availability: boolean
+
+    @Column({
+        type: DataType.FLOAT
+    })
+    declare quantity: number
 }
 
 export default Product

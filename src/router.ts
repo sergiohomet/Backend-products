@@ -1,54 +1,30 @@
-import { Router } from 'express'
-import { body, param } from 'express-validator'
-import { createProduct, deleteProduct, getProductById, getProducts, updateAvailability, updateProduct } from './handlers/product'
-import { handleInputErrors } from './middleware'
+import { Router } from "express";
+import {
+  createProduct,
+  deleteProduct,
+  getProductById,
+  getProducts,
+  updateAvailability,
+  updateProduct,
+} from "./handlers/product";
+import { handleInputErrors } from "./middleware";
+import {
+  CheckGetProductId,
+  ProductValidationRules,
+} from "./validators/useValidator";
 
-const router = Router()
+const router = Router();
 
-// Routing
-router.get('/', getProducts)
-router.get('/:id', 
-    param('id').isInt().withMessage('ID no válido'),
-    handleInputErrors,
-    getProductById
-)
+router.get("/", getProducts);
 
-router.post('/', 
-    // Validación
-    body('name')
-        .notEmpty().withMessage('El nombre de Producto no puede ir vacio'),
-    body('price')
-        .isNumeric().withMessage('Valor no válido')
-        .notEmpty().withMessage('El precio de Producto no puede ir vacio')
-        .custom(value => value > 0).withMessage('Precio no válido'),
-    handleInputErrors,
-    createProduct
-)
+router.get("/:id", CheckGetProductId, handleInputErrors, getProductById);
 
-router.put('/:id', 
-    param('id').isInt().withMessage('ID no válido'),
-    body('name')
-        .notEmpty().withMessage('El nombre de Producto no puede ir vacio'),
-    body('price')
-        .isNumeric().withMessage('Valor no válido')
-        .notEmpty().withMessage('El precio de Producto no puede ir vacio')
-        .custom(value => value > 0).withMessage('Precio no válido'),
-    body('availability')
-        .isBoolean().withMessage('Valor para disponibilidad no válido'),
-    handleInputErrors,
-    updateProduct
-)
+router.post("/", ProductValidationRules, handleInputErrors, createProduct);
 
-router.patch('/:id', 
-    param('id').isInt().withMessage('ID no válido'),
-    handleInputErrors,
-    updateAvailability
-)
+router.put("/:id", ProductValidationRules, handleInputErrors, updateProduct);
 
-router.delete('/:id', 
-    param('id').isInt().withMessage('ID no válido'),
-    handleInputErrors,
-    deleteProduct
-)
+router.patch("/:id", CheckGetProductId, handleInputErrors, updateAvailability);
 
-export default router
+router.delete("/:id", CheckGetProductId, handleInputErrors, deleteProduct);
+
+export default router;
