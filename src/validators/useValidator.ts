@@ -1,8 +1,10 @@
 import { body, param } from "express-validator";
 
-export const ProductValidationRules = [
+export const ProductIdValidation = [
     param('id').isInt().withMessage('ID no válido'),
+]
 
+export const ProductValidationRules = [
     body('name')
         .notEmpty().withMessage('El nombre del producto no puede ir vacio'),
 
