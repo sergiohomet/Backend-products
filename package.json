@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
     "test" : "jest --detectOpenHandles",
+    "test:coverage" : "npm run pretest && jest --detectOpenHandles --coverage",
     "pretest": "ts-node ./src/data --clear"
   },
-  "author": "Juan De la torre @codigoconjuan",
+  "author": "Sergio Homet",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.20",
