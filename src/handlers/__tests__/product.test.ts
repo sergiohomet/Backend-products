@@ -208,9 +208,6 @@ describe('PATCH api/product/:id', () => {
   })
 })
 
-
-
-
 describe("DELETE /api/product/:id", () => {
   test("Should check a valid ID", async () => {
     const response = await request(server).delete(`/api/products/not-valid-id`);
