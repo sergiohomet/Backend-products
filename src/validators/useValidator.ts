@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
 
-export const ProductIdValidation = [
+export const IdValidation = [
     param('id').isInt().withMessage('ID no válido'),
 ]
 

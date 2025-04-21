@@ -9,7 +9,7 @@ import {
 } from "./handlers/product";
 import { handleInputErrors } from "./middleware";
 import {
-  ProductIdValidation,
+  IdValidation,
   ProductValidationRules,
 } from "./validators/useValidator";
 
@@ -17,14 +17,14 @@ const router = Router();
 
 router.get("/", getProducts);
 
-router.get("/:id", ProductIdValidation, handleInputErrors, getProductById);
+router.get("/:id", IdValidation, handleInputErrors, getProductById);
 
 router.post("/", ProductValidationRules, handleInputErrors, createProduct);
 
-router.put("/:id", ProductIdValidation, ProductValidationRules, handleInputErrors, updateProduct);
+router.put("/:id", IdValidation, ProductValidationRules, handleInputErrors, updateProduct);
 
-router.patch("/:id", ProductIdValidation, handleInputErrors, updateAvailability);
+router.patch("/:id", IdValidation, handleInputErrors, updateAvailability);
 
-router.delete("/:id", ProductIdValidation, handleInputErrors, deleteProduct);
+router.delete("/:id", IdValidation, handleInputErrors, deleteProduct);
 
 export default router;
