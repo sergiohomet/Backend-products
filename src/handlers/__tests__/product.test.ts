@@ -193,17 +193,20 @@ describe('PATCH api/product/:id', () => {
     expect(response.status).toBe(404);
     expect(response.body).toHaveProperty("error");
     expect(response.body.error).toBe("Producto No Encontrado");
+
+    expect(response.status).not.toBe(200)
+    expect(response.body).not.toHaveProperty("data");
   });
 
-  test('Should change availability on a product', async () => {
+  test('Should update the product availability', async () => {
     const response = await request(server).patch(`/api/products/1`);
   
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('data')
+    expect(response.body.data.availability).toBe(false)
   
     expect(response.status).not.toBe(404)
     expect(response.status).not.toBe(400)
-    expect(response.body).not.toHaveProperty('errors')
     expect(response.body).not.toHaveProperty('error')
   })
 })
